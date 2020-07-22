@@ -71,4 +71,10 @@ More notes to come...
 In order to run in non-test drive labs, it is necessary to modify the array and API keys at the following locations:
 For kubernetes, modify the kubernetes_yaml/pso_values.yaml
 
-More to come...
+- SSH server Running
+- GIT installed
+- Update/upgrade
+- Install_ubuntu.sh will install the following
+- installed multipath-tools
+- installed python3-pip
+- installed open-iscsi
