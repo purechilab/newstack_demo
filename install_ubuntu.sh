@@ -87,4 +87,6 @@ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo update
 helm install pure-storage-driver pure/pure-csi --namespace default -f ~/newstack_demo/kubernetes_yaml/pso_values.yaml
 
+#Install PSO EXPLORER
+#./install
 echo "#### For kubectl to work, you will need to run 'source ~/.bashrc' ####"
