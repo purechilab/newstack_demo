@@ -71,7 +71,6 @@ ansible-playbook -i inventory/testdrive/inventory.ini cluster.yml -b
 source ~/.bashrc
 sudo cp /etc/kubernetes/admin.conf ~/.
 sudo chown $(id -u):$(id -g) ~/admin.conf
-echo 'export KUBECONFIG=$HOME/admin.conf' >> ~/.bashrc
 cat << 'EOF' >> ~/.bashrc
 export KUBECONFIG=$HOME/admin.conf
 source <(kubectl completion bash)
@@ -79,7 +78,7 @@ complete -F __start_kubectl k
 alias kgp='kubectl get pods --all-namespaces'
 alias kgv="kubectl get VolumeSnapShots"
 EOF
-export KUBECONFIG=$HOME/admin.conf
+
 
 #Install PSO
 echo "#### Update helm repos and install PSO ####"
@@ -102,3 +101,6 @@ kubectl create namespace psoexpl
 # Install with default settings
 helm install pso-explorer pso-explorer/pso-explorer --namespace psoexpl
 echo "#### For kubectl to work, you may need to run 'source ~/.bashrc' ####"
+
+# moving this to after kubespray runs 
+export KUBECONFIG=$HOME/admin.conf
