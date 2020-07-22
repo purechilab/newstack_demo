@@ -46,8 +46,8 @@ EOF
 #install Iscsi-tools
 sudo apt install open-iscsi -d
 
-#systemctl restart multipathd
-#/usr/sbin/multipath -r
+#Install Multipath tools
+sudo apt install multipath-tools
 
 
 # Save a second and create a mount point in /mnt - Actually, Ansible will create the mount point.
