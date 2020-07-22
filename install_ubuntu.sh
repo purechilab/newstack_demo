@@ -24,7 +24,7 @@ pip3 install ansible
 
 # Ansible is being installed with PIP3, so we need to update the path for the users
 echo 'export PATH=$PATH:$HOME/.local/bin' >> ~/.bashrc
-source ~/.bashrc
+source ~/.bashrc -i
 
 echo "#### Installing the Purestorage Ansible Collection  ####"
 
