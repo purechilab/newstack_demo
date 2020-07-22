@@ -68,16 +68,21 @@ echo "#### Install kubernetes ####"
 ansible-playbook -i inventory/testdrive/inventory.ini cluster.yml -b
 
 # configure kubectl. needs to be updated as it only works
-source ~/.bashrc
-sudo cp /etc/kubernetes/admin.conf ~/.
-sudo chown $(id -u):$(id -g) ~/admin.conf
-cat << 'EOF' >> ~/.bashrc
+FILE=$HOME/admin.conf
+if test -f "$FILE"; then
+  sudo cp /etc/kubernetes/admin.conf ~/.
+  sudo chown $(id -u):$(id -g) ~/admin.conf
+  cat << 'EOF' >> ~/.bashrc
 export KUBECONFIG=$HOME/admin.conf
 source <(kubectl completion bash)
 complete -F __start_kubectl k
 alias kgp='kubectl get pods --all-namespaces'
 alias kgv="kubectl get VolumeSnapShots"
 EOF
+
+fi
+
+
 
 
 #Install PSO
@@ -102,5 +107,5 @@ kubectl create namespace psoexpl
 helm install pso-explorer pso-explorer/pso-explorer --namespace psoexpl
 echo "#### For kubectl to work, you may need to run 'source ~/.bashrc' ####"
 
-# moving this to after kubespray runs 
+# moving this to after kubespray runs
 export KUBECONFIG=$HOME/admin.conf
