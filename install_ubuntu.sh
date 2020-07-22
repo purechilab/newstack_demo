@@ -12,7 +12,7 @@ echo "#####################################"
 echo '%sudo ALL=(ALL) NOPASSWD:ALL' | sudo tee -a /etc/sudoers
 
 #install PIP3
-sudo apt install python3-pip -d
+sudo apt install python3-pip -d  --assume-yes
 
 # Install SDK
 
@@ -31,23 +31,11 @@ echo "#### Installing the Purestorage Ansible Collection  ####"
 ansible-galaxy collection install purestorage.flasharray
 
 
-echo "####  Making VIM feel right ####"
-
-cat << 'EOF' >> ~/.vimrc
-set incsearch           " search as characters are entered
-set hlsearch            " highlight matches
-colo torte              " set colorscheme
-syntax on               " syntax highlighing on
-set expandtab           " tabs are spaces
-set softtabstop=4       " number of spaces in tab when editing
-set tabstop=4           " number of visual spaces per TAB
-EOF
-
 #install Iscsi-tools
-sudo apt install open-iscsi -d
+sudo apt install open-iscsi -d --assume-yes
 
 #Install Multipath tools
-sudo apt install multipath-tools -d
+sudo apt install multipath-tools -d --assume-yes
 
 
 # Save a second and create a mount point in /mnt - Actually, Ansible will create the mount point.
@@ -98,3 +86,5 @@ helm repo add pure https://purestorage.github.io/helm-charts
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo update
 helm install pure-storage-driver pure/pure-csi --namespace default -f ~/newstack_demo/kubernetes_yaml/pso_values.yaml
+
+echo "#### For kubectl to work, you will need to run 'source ~/.bashrc' ####"
