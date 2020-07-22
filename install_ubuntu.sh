@@ -88,5 +88,16 @@ helm repo update
 helm install pure-storage-driver pure/pure-csi --namespace default -f ~/newstack_demo/kubernetes_yaml/pso_values.yaml
 
 #Install PSO EXPLORER
-#./install
-echo "#### For kubectl to work, you will need to run 'source ~/.bashrc' ####"
+# Add Helm repo for PSO Explorer
+echo "#### Add, update helm repos and install PSO Explorer####"
+helm repo add pso-explorer 'https://raw.githubusercontent.com/PureStorage-OpenConnect/pso-explorer/master/'
+helm repo update
+helm search repo pso-explorer -l
+
+# Create namespace
+kubectl create namespace psoexpl
+
+# Install with default settings
+helm install pso-explorer pso-explorer/pso-explorer --namespace psoexpl
+echo "#### For kubectl to work, you may need to run 'source ~/.bashrc' ####"
+source ~/.bashrc
