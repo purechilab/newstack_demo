@@ -101,3 +101,7 @@ kubectl create namespace psoexpl
 helm install pso-explorer pso-explorer/pso-explorer --namespace psoexpl
 echo "#### For kubectl to work, you may need to run 'source ~/.bashrc' ####"
 source ~/.bashrc
+source~/.bashrc
+source~/.bashrc
+source~/.bashrc
+
