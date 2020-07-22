@@ -9,7 +9,7 @@
 echo "#####################################"
 
 #install PIP3
-sudo apt install python3-pip
+sudo apt install python3-pip -d
 
 # Install SDK
 
@@ -41,7 +41,7 @@ set tabstop=4           " number of visual spaces per TAB
 EOF
 
 #install Iscsi-tools
-sudo apt install open-iscsi
+sudo apt install open-iscsi -d
 
 #systemctl restart multipathd
 #/usr/sbin/multipath -r
@@ -53,7 +53,7 @@ sudo apt install open-iscsi
 # Typing "ansible-playbook" everytime is a hassle...
 echo "" >> ~/.bashrc
 echo "alias ap='ansible-playbook'" >> ~/.bashrc
-echo "alias P='cd ~/newstack_testdrive/ansible_playbooks'" >> ~/.bashrc
+echo "alias P='cd ~/newstack_demo/ansible_playbooks'" >> ~/.bashrc
 source ~/.bashrc
 
 
@@ -65,7 +65,7 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 #clone required repositories
 echo "#### Clone kubespray repo and copy inventory in to repo ####"
 git clone https://github.com/kubernetes-sigs/kubespray ~/kubespray
-cp -rfv ~/newstack_testdrive/inventory/testdrive ~/kubespray/inventory/
+cp -rfv ~/newstack_demo/inventory/testdrive ~/kubespray/inventory/
 cd ~/kubespray
 
 # Install prereqs as we now have pip3
@@ -94,4 +94,5 @@ echo "#### Update helm repos and install PSO ####"
 helm repo add pure https://purestorage.github.io/helm-charts
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo update
-helm install pure-storage-driver pure/pure-csi --namespace default -f ~/newstack_testdrive/kubernetes_yaml/pso_values.yaml
+helm install pure-storage-driver pure/pure-csi --namespace default -f ~/
+drive/kubernetes_yaml/pso_values.yaml
