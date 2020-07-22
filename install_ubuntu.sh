@@ -12,7 +12,7 @@ echo "#####################################"
 echo '%sudo ALL=(ALL) NOPASSWD:ALL' | sudo tee -a /etc/sudoers
 
 #install PIP3
-sudo apt install python3-pip -d  --assume-yes
+sudo apt install python3-pip --assume-yes
 
 # Install SDK
 
@@ -32,10 +32,10 @@ ansible-galaxy collection install purestorage.flasharray
 
 
 #install Iscsi-tools
-sudo apt install open-iscsi -d --assume-yes
+sudo apt install open-iscsi --assume-yes
 
 #Install Multipath tools
-sudo apt install multipath-tools -d --assume-yes
+sudo apt install multipath-tools --assume-yes
 
 
 # Save a second and create a mount point in /mnt - Actually, Ansible will create the mount point.
