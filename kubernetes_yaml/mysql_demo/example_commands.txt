@@ -1,0 +1,57 @@
+kubectl -n demo apply -f mysql-configmap.yaml
+
+kubectl -n demo apply -f mysql-services.yaml
+
+kubectl -n demo apply -f mysql-statefulset.yaml
+
+# Now start the demo
+
+# Watch the app come up:
+kubectl -n demo get pods -l app=mysql --watch
+
+
+# Push some data to the master:
+kubectl -n demo run mysql-client --image=mysql:5.7 -i --rm --restart=Never --\
+  mysql -h mysql-0.mysql <<EOF
+CREATE DATABASE test;
+CREATE TABLE test.messages (message VARCHAR(250));
+INSERT INTO test.messages VALUES ('hello');
+EOF
+
+# Test that the data is there:
+kubectl -n demo run mysql-client --image=mysql:5.7 -i -t --rm --restart=Never --\
+  mysql -h mysql-read -e "SELECT * FROM test.messages"
+
+# Loop through the mysql servers. It is helpful to have this running in a different window
+kubectl -n demo run mysql-client-loop --image=mysql:5.7 -i -t --rm --restart=Never --\
+  bash -ic "while sleep 1; do mysql -h mysql-read -e 'SELECT @@server_id,NOW()'; done"
+
+# Simulate downtime by moving the mysql binary out of the way
+kubectl -n demo exec mysql-2 -c mysql -- mv /usr/bin/mysql /usr/bin/mysql.off
+
+kubectl -n demo get pod mysql-2
+
+kubectl -n demo exec mysql-2 -c mysql -- mv /usr/bin/mysql.off /usr/bin/mysql
+
+
+# Delete a pod
+kubectl -n demo delete pod mysql-2
+
+
+# Drain a node
+kubectl -n demo get pod mysql-2 -o wide
+
+kubectl -n demo drain <node-name> --force --delete-local-data --ignore-daemonsets
+
+kubectl -n demo get pod mysql-2 -o wide --watch
+
+kubectl uncordon <node-name>
+
+# Scale the number of slaves
+kubectl -n demo scale statefulset mysql  --replicas=5
+
+kubectl -n demo get pods -l app=mysql --watch
+
+kubectl -n demo scale statefulset mysql  --replicas=3
+
+# Note that the above leaves behind PVCs (just in case)
