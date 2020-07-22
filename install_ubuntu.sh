@@ -24,6 +24,7 @@ pip3 install ansible
 
 # Ansible is being installed with PIP3, so we need to update the path for the users
 echo 'export PATH=$PATH:$HOME/.local/bin' >> ~/.bashrc
+export PATH=$PATH:$HOME/.local/bin
 source ~/.bashrc -i
 
 echo "#### Installing the Purestorage Ansible Collection  ####"
@@ -45,7 +46,6 @@ sudo apt install multipath-tools --assume-yes
 echo "" >> ~/.bashrc
 echo "alias ap='ansible-playbook'" >> ~/.bashrc
 echo "alias P='cd ~/newstack_demo/ansible_playbooks'" >> ~/.bashrc
-source ~/.bashrc
 
 
 #generate an ssh key for local login:
@@ -65,7 +65,6 @@ pip3 install -r requirements.txt
 
 # Install kubernetes
 echo "#### Install kubernetes ####"
-source ~/.bashrc
 ansible-playbook -i inventory/testdrive/inventory.ini cluster.yml -b
 
 # configure kubectl. needs to be updated as it only works
@@ -80,7 +79,7 @@ complete -F __start_kubectl k
 alias kgp='kubectl get pods --all-namespaces'
 alias kgv="kubectl get VolumeSnapShots"
 EOF
-source ~/.bashrc
+export KUBECONFIG=$HOME/admin.conf
 
 #Install PSO
 echo "#### Update helm repos and install PSO ####"
@@ -96,16 +95,10 @@ echo "#### Add, update helm repos and install PSO Explorer####"
 helm repo add pso-explorer 'https://raw.githubusercontent.com/PureStorage-OpenConnect/pso-explorer/master/'
 helm repo update
 helm search repo pso-explorer -l
-source ~/.bashrc
 
 # Create namespace
 kubectl create namespace psoexpl
-source ~/.bashrc
 
 # Install with default settings
 helm install pso-explorer pso-explorer/pso-explorer --namespace psoexpl
 echo "#### For kubectl to work, you may need to run 'source ~/.bashrc' ####"
-
-
-source ~/.bashrc
-
