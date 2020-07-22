@@ -12,7 +12,7 @@ echo "#####################################"
 echo '%sudo ALL=(ALL) NOPASSWD:ALL' | sudo tee -a /etc/sudoers
 
 #install PIP3
-sudo apt install python3-pip -d  --assume-yes
+sudo apt install python3-pip --assume-yes
 
 # Install SDK
 
@@ -24,7 +24,8 @@ pip3 install ansible
 
 # Ansible is being installed with PIP3, so we need to update the path for the users
 echo 'export PATH=$PATH:$HOME/.local/bin' >> ~/.bashrc
-source ~/.bashrc
+export PATH=$PATH:$HOME/.local/bin
+source ~/.bashrc -i
 
 echo "#### Installing the Purestorage Ansible Collection  ####"
 
@@ -32,10 +33,10 @@ ansible-galaxy collection install purestorage.flasharray
 
 
 #install Iscsi-tools
-sudo apt install open-iscsi -d --assume-yes
+sudo apt install open-iscsi --assume-yes
 
 #Install Multipath tools
-sudo apt install multipath-tools -d --assume-yes
+sudo apt install multipath-tools --assume-yes
 
 
 # Save a second and create a mount point in /mnt - Actually, Ansible will create the mount point.
@@ -45,7 +46,6 @@ sudo apt install multipath-tools -d --assume-yes
 echo "" >> ~/.bashrc
 echo "alias ap='ansible-playbook'" >> ~/.bashrc
 echo "alias P='cd ~/newstack_demo/ansible_playbooks'" >> ~/.bashrc
-source ~/.bashrc
 
 
 #generate an ssh key for local login:
@@ -68,17 +68,18 @@ echo "#### Install kubernetes ####"
 ansible-playbook -i inventory/testdrive/multi_inventory.ini cluster.yml -b
 
 # configure kubectl. needs to be updated as it only works
-sudo cp /etc/kubernetes/admin.conf ~/.
-sudo chown $(id -u):$(id -g) ~/admin.conf
-echo 'export KUBECONFIG=$HOME/admin.conf' >> ~/.bashrc
+
+mkdir ~/.kube
+sudo cp /etc/kubernetes/admin.conf ~/.kube/config -rf
+sudo chown $(id -u):$(id -g) ~/.kube/config
 cat << 'EOF' >> ~/.bashrc
-export KUBECONFIG=$HOME/admin.conf
+export KUBECONFIG=$HOME/.kube/config
 source <(kubectl completion bash)
 complete -F __start_kubectl k
 alias kgp='kubectl get pods --all-namespaces'
 alias kgv="kubectl get VolumeSnapShots"
 EOF
-source ~/.bashrc
+
 
 #Install PSO
 echo "#### Update helm repos and install PSO ####"
@@ -86,6 +87,7 @@ helm repo add pure https://purestorage.github.io/helm-charts
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo update
 helm install pure-storage-driver pure/pure-csi --namespace default -f ~/newstack_demo/kubernetes_yaml/pso_values.yaml
+
 
 #Install PSO EXPLORER
 # Add Helm repo for PSO Explorer
@@ -100,4 +102,3 @@ kubectl create namespace psoexpl
 # Install with default settings
 helm install pso-explorer pso-explorer/pso-explorer --namespace psoexpl
 echo "#### For kubectl to work, you may need to run 'source ~/.bashrc' ####"
-source ~/.bashrc
