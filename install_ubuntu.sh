@@ -1,18 +1,27 @@
-#!/bin/bash
-# This is only to be used as a prep for the Pure Test Drive Environment
+!/bin/bash
+# This is only to be used as a prep for a non Pure Test Drive Environment
 # Brian Kuebler 4/17/20
+# Bruce Modell 7/22/20
+# Chris Crow 7/22/20
 
 # Install necessary packages, only python2 installed
 
 echo "#####################################"
 
+#install PIP3
+sudo apt install python3-pip
 
 # Install SDK
 
 echo "####  Installing the Pure Storage SDK  ####"
 pip3 install purestorage
 pip3 install jmespath
+pip3 install ansible
 # Install the Pure Storage collection
+
+# Ansible is being installed with PIP3, so we need to update the path for the users
+echo 'export PATH=$PATH:$HOME/.local/bin' >> ~/.bashrc
+source ~/.bashrc
 
 echo "#### Installing the Purestorage Ansible Collection  ####"
 
@@ -31,7 +40,8 @@ set softtabstop=4       " number of spaces in tab when editing
 set tabstop=4           " number of visual spaces per TAB
 EOF
 
-
+#install Iscsi-tools
+sudo apt install open-iscsi
 
 #systemctl restart multipathd
 #/usr/sbin/multipath -r
@@ -65,6 +75,19 @@ pip3 install -r requirements.txt
 # Install kubernetes
 echo "#### Install kubernetes ####"
 ansible-playbook -i inventory/testdrive/inventory.ini cluster.yml -b
+
+# configure kubectl. needs to be updated as it only works
+sudo cp /etc/kubernetes/admin.conf ~/.
+sudo chown $(id -u):$(id -g) ~/admin.conf
+echo 'export KUBECONFIG=$HOME/admin.conf' >> ~/.bashrc
+cat << 'EOF' >> ~/.bashrc
+export KUBECONFIG=$HOME/admin.conf
+source <(kubectl completion bash)
+complete -F __start_kubectl k
+alias kgp='kubectl get pods --all-namespaces'
+alias kgv="kubectl get VolumeSnapShots"
+EOF
+source ~/.bashrc
 
 #Install PSO
 echo "#### Update helm repos and install PSO ####"
