@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 # This is only to be used as a prep for a non Pure Test Drive Environment
 # Brian Kuebler 4/17/20
 # Bruce Modell 7/22/20
