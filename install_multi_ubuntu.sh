@@ -65,7 +65,7 @@ pip3 install -r requirements.txt
 
 # Install kubernetes
 echo "#### Install kubernetes ####"
-ansible-playbook -i inventory/testdrive/inventory.ini cluster.yml -b
+ansible-playbook -i inventory/testdrive/multi_inventory.ini cluster.yml -b
 
 # configure kubectl. needs to be updated as it only works
 sudo cp /etc/kubernetes/admin.conf ~/.
