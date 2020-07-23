@@ -39,7 +39,7 @@ sudo apt install open-iscsi --assume-yes
 sudo apt install multipath-tools --assume-yes
 
 #install scsi tools
-sudo apt-get install -y scsitools --assume-yes
+sudo apt install -y scsitools --assume-yes
 
 # Save a second and create a mount point in /mnt - Actually, Ansible will create the mount point.
 # mkdir /mnt/ansible-src
