@@ -120,7 +120,7 @@ kubectl scale deploy minio-deployment --replicas=0
 
 This demo allows the driver to run playbooks in the ansible_playbooks directory. They are numbered to run through a progression.
 
-You can run each playbook with 'ansible-playbook <yaml file>'
+You can run each playbook with 'ansible-playbook -b <yaml file>'
   
 The Active cluster demo requires access to two arrays (PSO Yaml file will need the info on both arrays)  
 
