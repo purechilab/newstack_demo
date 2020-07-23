@@ -1,7 +1,11 @@
 ---
 - name: Pure Storage LB example
   hosts: localhost
-  gather_facts: no
+  gather_facts: yes
+  collections:
+    - purestorage.flasharray
+  vars_files:
+    - testdrive_vars.yaml
   vars:
     array_usage: []
   roles:
