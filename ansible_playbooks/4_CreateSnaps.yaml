@@ -79,11 +79,11 @@
 
     - name: Force rescan
       command: /usr/sbin/multipath -r
-      command: /usr/bin/scsi-rescan
+      command: /usr/bin/rescan-scsi-bus.sh
 
     - name: Get multipath device name
       shell:
-        cmd: /usr/sbin/multipath -ll|grep -i {{ tgt_serial }} |awk '{print $2}'
+        cmd: /usr/sbin/multipath -ll|grep -i {{ tgt_serial }} |awk '{print $3}'
       register: mpath_tgt
 
     - debug:
