@@ -7,12 +7,15 @@ It currently includes Anisible, Kubernetes, PSO and PSO explorer.
 Many thanks are due to Brian Kuebler , Chris Crow for the original test drive idea, as well as all the ansible yaml files.
 
 ### Requirements
-You will need a Ubuntu 20.04 install.  The prereqs for this eviornment are as follows
+You will need a Ubuntu 20.04 install.  
+The prereqs for this eviornment are as follows
 Server VM has to have at least 1 Nic connected to the Lan/Wan and 1 NIC connected to your iSCSI network
 Access to at least 1 Pure FA running Purity 5.3 or higher (can be physical or VM)
 update/upgrade the enviornment using apt get
 make sure ssh is installed and running
 install git
+
+(best practice is to take a snapshot of your VM at this time, this will allow for quock restarts if something goes wrong or if you want a golden image to run demo from each time)
 
 
 ### Installing the demo
