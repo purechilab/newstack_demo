@@ -57,6 +57,7 @@ sudo apt install git
 clone the repo with:
 ```
 git clone https://pureschilab/newstack_demo
+cd newstack_demo
 ```
 
 Run the install_ubuntu.sh script
