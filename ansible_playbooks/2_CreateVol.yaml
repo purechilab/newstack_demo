@@ -48,7 +48,7 @@
 
   - name: Get multipath device id for demo volume
     shell:
-        cmd: /usr/sbin/multipath -ll |grep -i {{ volume_serial }}| awk '{print $2}'
+        cmd: /usr/sbin/multipath -ll |grep -i {{ volume_serial }}| awk '{print $3}'
     register: mpath_dev
 
   - name: Format demo volume
