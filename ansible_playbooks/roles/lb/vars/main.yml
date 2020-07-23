@@ -2,7 +2,7 @@
 # Add as many arrays as you want to this list.
 # Te API token must be for a user with a minimum of Storage Admin privilaege
 arrays:
-  - url: 172.16.3.101
-    api: cd6ba527-a21f-a014-d80b-13687c33402d
-  - url: 172.16.3.111
-    api: ff703c77-4db4-5e84-6734-b2d37acce147
+  - url: 10.224.112.20
+    api: 4f54c6ce-5f6d-575e-bbe3-ce1051541d9d
+  - url: 10.224.113.210
+    api: 84aadfaf-f742-2ee7-2cad-492febf2b1be
