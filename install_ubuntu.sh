@@ -103,6 +103,10 @@ kubectl create namespace psoexpl
 
 # Install with default settings
 helm install pso-explorer pso-explorer/pso-explorer --namespace psoexpl
+
+#INSTALL PIP AT ROOT
+sudo pip3 install purestorage
+
 echo "#### For kubectl to work, you may need to run 'source ~/.bashrc' ####"
 
 
