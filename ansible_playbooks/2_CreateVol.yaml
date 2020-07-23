@@ -20,7 +20,7 @@
   - name: Create volume for testing
     purefa_volume:
         name: "{{ demo_vol }}"
-        size: 100G
+        size: 69G
         fa_url: "{{ fa1_ip }}"
         api_token: "{{ fa1_token }}"
   
