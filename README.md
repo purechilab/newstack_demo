@@ -88,7 +88,6 @@ initial requirments
 - GIT installed
 - Update/upgrade
 Script will add the following
-- Install_ubuntu.sh will install the following
 - installed multipath-tools
 - installed python3-pip
 - installed open-iscsi
