@@ -64,6 +64,9 @@ Run the install_ubuntu.sh script
 
 Note that this will also install all of the ansible bits as well as the Pure PSO drivers and the new PSO explore bits
 
+This will take betwen 5-10 minutes depending on enviornment. Great time for you to explain whats going on during the install.
+
+
 ### Adding Flash Array to enviornment
 Open newstack_demo/kubernetes_yaml/pso_values.yaml with nano or vi
 
