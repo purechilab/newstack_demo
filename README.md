@@ -1,28 +1,43 @@
-# Newstack Testdrive Repository
+# Newstack_demo Repository
 
-This repo has scripts to spin up newstack in Demo in an Ubuntu 20.04 lab
+This repo has scripts to spin up Newstack Demo in an Ubuntu 20.04 lab
 
-It currently works with Ansible and Kubernetes
+It currently includes Anisible, Kubernetes, PSO and PSO explorer.
 
-Many thanks are due to kbkuebler , chris Crow for the idea, as well as ansible yaml files.
+Many thanks are due to Brian Kuebler , Chris Crow for the original test drive idea, as well as all the ansible yaml files.
 
-## Kubernetes with PSO Demo.
+### Requirements
+You will need a Ubuntu 20.04 install.  The prereqs for this eviornment are as follows
+Server VM has to have at least 1 Nic connected to the Lan/Wan and 1 NIC connected to your iSCSI network
+Access to at least 1 Pure FA running Purity 5.3 or higher (can be physical or VM)
+update/upgrade the enviornment using apt get
+make sure ssh is installed and running
+install git
 
-The following files are in the kube_yaml directory
 
 ### Installing the demo
 clone the repo with:
 ```
-git clone https://puresealab/newstack_demo
+git clone https://pureschilab/newstack_demo
 ```
 
 Run the install_ubuntu.sh script
 
-Note that this will also install all of the ansible bits
+Note that this will also install all of the ansible bits as well as the Pure PSO drivers and the new PSO explore bits
 
-### Running the Demo
+### Adding Flash Array to enviornment
+open newstack_demo/kubernetes_yaml/pso_values.yaml with nano or vi
+edit management end points and api with values from your Flasharay
+control-x to save
 
-The demo scripts are located in the kubernetes_yaml directory. They are designed to be run in order as there may be dependancies.
+### Demos
+
+The demo PSO demo scripts are located in the kubernetes_yaml directory. They are designed to be run in order as there may be dependancies.
+
+There is also a MySQL demo that is located in the kubernetes_yaml/mysql_demo folder
+open the kubernetes_yaml/mysql_demo/example_commands.txt file for step by step in structions to follow for the mySQl demo
+
+### PSO demo
 
 #### Create the PVC. Check that it is created on the Pure
 ```
@@ -67,13 +82,12 @@ More notes to come...
 
 
 # Additional customizations
-
-In order to run in non-test drive labs, it is necessary to modify the array and API keys at the following locations:
-For kubernetes, modify the kubernetes_yaml/pso_values.yaml
+initial requirments
 
 - SSH server Running
 - GIT installed
 - Update/upgrade
+Script will add the following
 - Install_ubuntu.sh will install the following
 - installed multipath-tools
 - installed python3-pip
