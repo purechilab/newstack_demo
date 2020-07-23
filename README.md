@@ -15,11 +15,28 @@ Server VM has to have at least 1 Nic connected to the Lan/Wan and 1 NIC connecte
 
 Access to at least 1 Pure FA running Purity 5.3 or higher (can be physical or VM)
 
-update/upgrade the enviornment using apt get
+Update/upgrade the enviornment using apt get
 
-make sure ssh is installed and running
+ sudo apt-get update
+ sudo apt-get upgrade
+ 
+Make sure ssh is installed and running
 
-install git
+sudo service ssh status
+
+If yes, skip to install git
+
+if no
+
+TYPE sudo apt-get install openssh-server
+
+Enable the ssh service by typing sudo systemctl enable ssh
+
+Start the ssh service by typing sudo systemctl start ssh
+
+Install git
+
+sudo apt install git
 
 (best practice is to take a snapshot of your VM at this time, this will allow for quock restarts if something goes wrong or if you want a golden image to run demo from each time)
 
