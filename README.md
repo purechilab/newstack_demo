@@ -54,6 +54,13 @@ sudo apt install git
 
 
 ### Installing the demo
+
+Update/upgrade the enviornment using apt get
+```
+ sudo apt-get update
+ sudo apt-get upgrade
+ ```
+
 clone the repo with:
 ```
 git clone https://pureschilab/newstack_demo
