@@ -1,3 +1,4 @@
+clusterID: purenewstackdemo
 arrays:
   FlashArrays:
     - MgmtEndPoint: "10.224.112.20"
