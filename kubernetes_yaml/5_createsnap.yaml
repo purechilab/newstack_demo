@@ -1,8 +1,9 @@
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1alpha1
 kind: VolumeSnapshot
 metadata:
   name: volumesnapshot-1
 spec:
-  volumeSnapshotClassName: pure-snapshotclass
+  snapshotClassName: pure-snapshotclass
   source:
-    persistentVolumeClaimName: minio-pv-claim
+    name: minio-pv-claim
+    kind: PersistentVolumeClaim
