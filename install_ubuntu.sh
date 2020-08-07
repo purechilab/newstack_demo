@@ -17,6 +17,10 @@ sudo apt-get upgrade
 #install PIP3
 sudo apt install python3-pip --assume-yes
 
+# Install necessary packages, only python2 installed
+
+echo "#####################################"
+
 # Install SDK
 
 echo "####  Installing the Pure Storage SDK  ####"
@@ -72,34 +76,6 @@ pip3 install -r requirements.txt
 echo "#### Install kubernetes ####"
 ansible-playbook -i inventory/testdrive/inventory.ini cluster.yml -b
 
-# Move to beta API for snapshot provider:
-
-# Remove old API
-#kubectl delete crd volumesnapshotcontents.snapshot.storage.k8s.io
-#kubectl delete crd volumesnapshots.snapshot.storage.k8s.io
-#kubectl delete crd volumesnapshotclasses.snapshot.storage.k8s.io
-
-# Recreate CRD with Beta release
-kubectl create -f  https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
-kubectl create -f  https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
-kubectl create -f  https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
-
-#Add the snap controller
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
-
-sleep 15
-
-#Install PSO
-echo "#### Update helm repos and install PSO ####"
-helm repo add pure https://purestorage.github.io/pso-csi
-helm repo update
-helm install pure-storage-driver pure/pureStorageDriver --version 6.0.0-rc3 --namespace default -f ~/newstack_demo/kubernetes_yaml/pso_values.yaml
-
-sleep 30
-
-#Install the purestorage snapshot class (this renders step 4 unnecessary)
-kubectl apply -f https://raw.githubusercontent.com/purestorage/pso-csi/master/pureStorageDriver/snapshotclass.yaml
 # configure kubectl. needs to be updated as it only works
 
 mkdir ~/.kube
@@ -139,5 +115,4 @@ helm install pso-explorer pso-explorer/pso-explorer --namespace psoexpl
 sudo pip3 install purestorage
 
 echo "#### For kubectl to work, you may need to run 'source ~/.bashrc' ####"
-
 
