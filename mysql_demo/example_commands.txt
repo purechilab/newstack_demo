@@ -1,5 +1,4 @@
-kubectl create namespace demo
-
+  
 kubectl -n demo apply -f mysql-configmap.yaml
 
 kubectl -n demo apply -f mysql-services.yaml
