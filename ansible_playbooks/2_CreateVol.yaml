@@ -44,7 +44,7 @@
 
   - name: Force multipath rescan
     command: /usr/sbin/multipath -r
-    command: /usr/bin/rescan-scsi-bus.sh
+    command: sudo /usr/bin/rescan-scsi-bus.sh
 
   - name: Get multipath device id for demo volume
     shell:
