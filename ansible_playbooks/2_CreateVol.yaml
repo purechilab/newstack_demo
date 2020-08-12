@@ -43,7 +43,7 @@
         api_token: "{{ fa1_token }}"
 
   - name: Force multipath rescan
-    command: /usr/sbin/multipath -r
+    command: sudo /usr/sbin/multipath -r
     command: sudo /usr/bin/rescan-scsi-bus.sh
 
   - name: Get multipath device id for demo volume
