@@ -121,7 +121,6 @@ kubectl scale deploy minio-deployment --replicas=1
 
 The Full Ansible Demo requires access to 2 x FlashArrays
 
-script 3 is an active cluster playbook. you can skip this if you only have 1 array
 
 ### Running the Demo
 
